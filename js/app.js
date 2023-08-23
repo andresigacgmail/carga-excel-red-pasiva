@@ -18,7 +18,7 @@ function cambiosVisualesCarga(e){
 }
 
 function pintarDatosEjemplo(arreglo){
-  console.log(arreglo);
+  //console.log(arreglo);
   let contador = 0;
   let texto = '';
   for (let i = 0; i < arreglo.length; i++) {
@@ -111,7 +111,7 @@ async function enviarDatosAlServidor(arreglo){
     puntosReferencia.push({objeto:arreglo[i]["Objeto 5"], azimut:arreglo[i]["Azimut Magnético 5 (Objeto 5)"], distancia: arreglo[i]["Distancia 5 (Objeto 5)"]});
 
     estaciones.push({
-      estacion:{
+      estacionDto:{
         identificador: arreglo[i]["Nomenclatura Estandarizada"],
         nomenclatura: arreglo[i]["Nomenclatura Placa"],
         municipio: arreglo[i]["Municipio"],
@@ -142,7 +142,7 @@ async function enviarDatosAlServidor(arreglo){
   }
 
 
-  console.log(estaciones);      
+  //console.log(estaciones);      
 
   
 
