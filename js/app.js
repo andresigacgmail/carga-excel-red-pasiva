@@ -97,13 +97,73 @@ document.querySelector('#btnCargarExcel').addEventListener('click', () => {
 
 
 async function enviarDatosAlServidor(arreglo){
-  console.log(arreglo);    
+
   document.querySelector('#btnCargarExcel').disabled = true;
   document.querySelector('#btnCargarExcel').innerHTML = ` <span class="sr-only">Loading...</span>  <div class="spinner-border" role="status"> </div> `;
+
+  let estaciones = [];
+  let puntosReferencia = [];
+  for (let i = 0; i < arreglo.length; i++){
+    puntosReferencia.push({objeto:arreglo[i]["Objeto 1"], azimut:arreglo[i]["Azimut Magnético 1 (Objeto 1)"], distancia: arreglo[i]["Distancia 1 (Objeto 1)"]});
+    puntosReferencia.push({objeto:arreglo[i]["Objeto 2"], azimut:arreglo[i]["Azimut Magnético 2 (Objeto 2)"], distancia: arreglo[i]["Distancia 2 (Objeto 2)"]});
+    puntosReferencia.push({objeto:arreglo[i]["Objeto 3"], azimut:arreglo[i]["Azimut Magnético 3 (Objeto 3)"], distancia: arreglo[i]["Distancia 3 (Objeto 3)"]});
+    puntosReferencia.push({objeto:arreglo[i]["Objeto 4"], azimut:arreglo[i]["Azimut Magnético 4 (Objeto 4)"], distancia: arreglo[i]["Distancia 4 (Objeto 4)"]});
+    puntosReferencia.push({objeto:arreglo[i]["Objeto 5"], azimut:arreglo[i]["Azimut Magnético 5 (Objeto 5)"], distancia: arreglo[i]["Distancia 5 (Objeto 5)"]});
+
+    estaciones.push({
+      estacion:{
+        identificador: arreglo[i]["Nomenclatura Estandarizada"],
+        nomenclatura: arreglo[i]["Nomenclatura Placa"],
+        municipio: arreglo[i]["Municipio"],
+        latitud: arreglo[i]["Latitud (decimal)"],
+        longitud: arreglo[i]["Longitud (decimal)"],
+        altura_elipsoidal: arreglo[i]["Altura Elipsoidal"],
+        estado_vertice: arreglo[i]["Estado Vértice"]
+      },
+      materializacion: {
+        lugar_materializacion: arreglo[i]["Sitio"],
+        tipo_materializacion: arreglo[i]["Tipo Materialización"],
+        fecha_materializacion: arreglo[i]["Fecha Materialización"],
+        fecha_descripcion: arreglo[i]["Fecha Descripción"],
+        monumentado_por_1: arreglo[i]["Monumentado por 1"],
+        ancho_mts: arreglo[i]["Ancho (mts)"],
+        largo_mts: arreglo[i]["Largo (mts)"],
+        altura_mts: arreglo[i]["Altura (mts)"],
+        observacion: arreglo[i]["Observaciones"],
+        actualizó: arreglo[i]["Elaboró/Actualizó"],
+        descripción_detallada: arreglo[i]["Descripción Detallada"],
+        acceso_general: arreglo[i]["Acceso General"],
+        registrado_por: arreglo[i]["Registrado por"],
+      },
+      puntosReferencia: puntosReferencia
+    });
+
+    puntosReferencia = [];    
+  }
+
+
+  console.log(estaciones);      
+
   
-  setTimeout(() => {
+
+  try {
+    const res = await fetch('http://localhost:8084/pasiva',{
+      method: 'POST',
+      body: JSON.stringify(estaciones),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const datos = await res.json();
+    console.log(datos)
+
     document.querySelector('#btnCargarExcel').disabled = false;
     console.log('respuesta el servidor');    
     document.querySelector('#btnCargarExcel').innerHTML = `Cargar`;
-  }, 1000);
+
+  } catch (error) {
+    console.error(error);
+  }
+  
+
 }
