@@ -118,7 +118,8 @@ async function enviarDatosAlServidor(arreglo){
         latitud: arreglo[i]["Latitud (decimal)"],
         longitud: arreglo[i]["Longitud (decimal)"],
         altura_elipsoidal: arreglo[i]["Altura Elipsoidal"],
-        estado_vertice: arreglo[i]["Estado Vértice"]
+        estado_vertice: arreglo[i]["Estado Vértice"],
+        agencia: arreglo[i]["agencia"]
       },
       materializacion: {
         lugar_materializacion: arreglo[i]["Sitio"],
