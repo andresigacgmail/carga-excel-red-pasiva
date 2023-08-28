@@ -121,7 +121,7 @@ async function enviarDatosAlServidor(arreglo){
         estado_vertice: arreglo[i]["Estado Vértice"],
         agencia: arreglo[i]["agencia"]
       },
-      materializacion: {
+      materializacionDto: {
         lugar_materializacion: arreglo[i]["Sitio"],
         tipo_materializacion: arreglo[i]["Tipo Materialización"],
         fecha_materializacion: arreglo[i]["Fecha Materialización"],
