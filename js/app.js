@@ -173,7 +173,8 @@ async function enviarDatosAlServidor(arreglo){
   
 
   try {
-    const res = await fetch('http://localhost:8084/pasiva',{
+    //const res = await fetch('http://localhost:8084/pasiva',{
+    const res = await fetch('http://10.23.13.10:8084/pasiva',{
       method: 'POST',
       body: JSON.stringify(estaciones),
       headers: {
