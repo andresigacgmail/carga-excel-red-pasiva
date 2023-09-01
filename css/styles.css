@@ -121,3 +121,11 @@ input {
 /* #btnCargarExcel {
     
 } */
+
+.red {
+    color: red;
+}
+
+.green {
+    color: rgb(71, 218, 71);
+}

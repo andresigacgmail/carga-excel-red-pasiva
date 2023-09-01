@@ -38,6 +38,31 @@ function pintarDatosEjemplo(arreglo){
   document.getElementById('tablaEntrada').innerHTML = texto;
 }
 
+function pintarDatosSalida(arreglo){
+  console.log(arreglo[0].estacion.identificador);
+  console.log(arreglo[0].status);
+  let tamanoTotal = arreglo.length;
+  let correctos = 0;
+
+  let texto = '';
+  for (let i = 0; i < arreglo.length; i++) {
+    arreglo[i].status ? correctos++ : null;
+    texto += `
+            <tr>
+            <th scope="row">${arreglo[i].estacion.t_id}</th>       
+              <th scope="row">${arreglo[i].estacion.identificador}</th>             
+              <td>${arreglo[i].status ? '<span class="green">Guardado con exito</span>' : '<span class="red">Error al guardar</span>'}</td>
+            </tr>
+            `;    
+  }
+  Swal.fire(
+    `Proceso finalizado <p>${correctos} de ${tamanoTotal} Completados.</p>`,
+    'That thing is still around?',
+    'info'
+  );
+  document.getElementById('tablaSalida').innerHTML = texto;
+}
+
 
 
 
@@ -158,6 +183,9 @@ async function enviarDatosAlServidor(arreglo){
     const datos = await res.json();
     console.log(datos)
 
+    pintarDatosSalida(datos);
+
+    
     document.querySelector('#btnCargarExcel').disabled = false;
     console.log('respuesta el servidor');    
     document.querySelector('#btnCargarExcel').innerHTML = `Cargar`;
